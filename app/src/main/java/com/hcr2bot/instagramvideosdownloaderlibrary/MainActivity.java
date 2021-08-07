@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.hcr2bot.instagramvideosdownloader.InstaVideo;
+import com.hcr2bot.instaimagesdownloader.InstagramImages;
 
 import java.net.URL;
 
@@ -27,9 +28,6 @@ public class MainActivity extends AppCompatActivity {
 
     Button btnDownload, btnPaste;
     EditText url;
-    public String urlToCheck;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,23 +64,31 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
         btnDownload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 if (isValidUrl(url.getText().toString()))
                 {
-                    InstaVideo.downloadVideo(MainActivity.this,url.getText().toString() );
+                    WhatToDownload(url.getText().toString());
                 } else {
-                    Toast.makeText(MainActivity.this, "Please input correct url!",  Toast.LENGTH_LONG).show();
+                    Toast.makeText(MainActivity.this, "URL is not valid!",  Toast.LENGTH_LONG).show();
                 }
                 url.getText().clear();
             }
         });
     }
 
-
+    private void WhatToDownload(String url){
+        if (url.contains("www.instagram.com/reel")) { // ini reel
+            InstaVideo.downloadVideo(MainActivity.this, url);
+        } else if (url.contains("www.instagram.com/tv")){ //ini igtv
+            InstaVideo.downloadVideo(MainActivity.this, url);
+        } else if (url.contains("www.instagram.com/p")) { // ini photo
+            InstagramImages.downloadImage(MainActivity.this, url);
+        } else {
+            Toast.makeText(this, "URL is not valid", Toast.LENGTH_SHORT).show();
+        }
+    }
 
     private Boolean isValidUrl(String urlToCheck) {
         try {
