@@ -51,7 +51,7 @@
         android:layout_height="wrap_content"
         android:width="350dp"
         android:height="60dp"
-        android:text="Download"
+        android:text="Download Skuy"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
